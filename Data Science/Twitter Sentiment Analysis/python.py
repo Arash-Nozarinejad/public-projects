@@ -7,15 +7,6 @@ import pandas as pd
 import tkinter as tk
 import tweepy
 
-#Sno4UTU3VXhJMXlNWnZZMnpKUFk6MTpjaQ
-#bQ5Rt7Kl9k9uUzITGlRwDEBzHy0vvJb7G1MmfeHf7rj84rNoFl
-
-#PARAM_CONSUMER_KEY = '7n6HXTXcaObMMos8Vbyet8YG1'
-#PARAM_CONSUMER_SECRET = 'kUDhLI7Yf5ngIjg8yrt5ZmeEV8SmPvLtzcjP6ZgP55RfmXXWer'
-PARAM_CONSUMER_KEY = '7n6HXTXcaObMMos8Vbyet8YG1'
-PARAM_CONSUMER_SECRET = 'kUDhLI7Yf5ngIjg8yrt5ZmeEV8SmPvLtzcjP6ZgP55RfmXXWer'
-PARAM_ACCESS_TOKEN = '1613468975580565505-ek1RLUZWKqRs7egTat4ku1m3muldX4'
-PARAM_ACCESS_TOKEN_SECRET = 'IIuuXCQcHSJ7Cz47M3iCoWWeqryVtpFMP6kmoZyz0QdC1'
 
 def twitter_connect() -> tweepy.API:
     auth = tweepy.OAuth1UserHandler(
