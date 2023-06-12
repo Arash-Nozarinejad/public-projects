@@ -376,7 +376,128 @@ For the evaluation of these models, we utilize several common evaluation metrics
 By training and evaluating these models using various metrics, we can assess their performance and choose the most suitable model for loan default prediction based on their respective strengths and weaknesses.
 
 ``` python
+def split_train_test_data(dataset: pd.DataFrame, target_column: str, test_size=0.2, random_state=42) -> tuple:
+    '''
+    Using sklearn's train_test_split function, we'll split the data into train and test split
+    '''
 
+    x = dataset.drop(columns=[target_column])
+    y = dataset[target_column]
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=random_state)
+
+    print('Tran set shape: ', x_train.shape, y_train.shape)
+    print('Test set shape: ', x_test.shape, y_test.shape)
+
+    return x_train, x_test, y_train, y_test
+
+
+def train_evaluate_logistic_regression(x_train, y_train, x_test, y_test):
+    '''
+    This is a simple Sklearn logistic regression training and evaluation function.
+    Evaluation is done using:
+
+        1. Accuracy
+        2. Precision
+        3. Recall
+        4. F1 Score
+    '''
+
+    # Model training
+    model = LogisticRegression()
+    model.fit(x_train, y_train)
+
+    # Model evaluation
+    y_pred = model.predict(x_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
+
+    # Print evaluation metrics
+    print('Logistic Regression Model Evaluation: ')
+    print('Accuracy: ', accuracy)
+    print('Precision: ', precision)
+    print('Recall: ', recall)
+    print('F1 Score: ', f1)
+
+
+def train_evaluate_decision_tree(x_train, y_train, x_test, y_test):
+    '''
+    This is a decision tree training and evaluation function.
+    Evaluation is done using:
+
+        1. Accuracy
+        2. Precision
+        3. Recall
+        4. F1 Score
+    '''
+    
+    # Model training
+    model = DecisionTreeClassifier()
+    model.fit(x_train, y_train)
+
+    # Model evaluation
+    y_pred = model.predict(x_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
+        
+    # Print evaluation metrics
+    print("Decision Tree Model Evaluation:")
+    print("Accuracy:", accuracy)
+    print("Precision:", precision)
+    print("Recall:", recall)
+    print("F1 Score:", f1)
+
+
+def train_evaluate_random_forest(x_train, y_train, x_test, y_test):
+    '''
+    This is an advanced ensemble evaluation algorithm called random forest.
+    Evaluation is done using:
+
+        1. Accuracy
+        2. Precision
+        3. Recall
+        4. F1 Score
+    '''
+
+    # Model training
+    model = RandomForestClassifier()
+    model.fit(x_train, y_train)
+
+    # Model evaluation
+    y_pred = model.predict(x_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
+        
+    # Print evaluation metrics
+    print("Decision Tree Model Evaluation:")
+    print("Accuracy:", accuracy)
+    print("Precision:", precision)
+    print("Recall:", recall)
+    print("F1 Score:", f1)
+
+
+def train_evaluate_models(dataset: pd.DataFrame, target_column: str, test_size=0.2, random_state=42) -> None:
+    '''
+    This function first splits the dataset into train and test data. Then, Three models are used to 
+    train and evaluate the data. These models are:
+        1. Logistic Regression
+        2. Decision Tree
+        3. Random Forest
+    '''
+
+    x_train, x_test, y_train, y_test = split_train_test_data(dataset, target_column, test_size, random_state)
+
+    train_evaluate_logistic_regression(x_train, y_train, x_test, y_test)
+
+    train_evaluate_decision_tree(x_train, y_train, x_test, y_test)
+
+    train_evaluate_random_forest(x_train, y_train, x_test, y_test)
 ```
 
 ---
@@ -387,24 +508,24 @@ After training and evaluating the three models (Logistic Regression, Decision Tr
 
 Logistic Regression Model Evaluation:
 
-- Accuracy: 0.7696
-- Precision: 0.7997
-- Recall: 0.0717
-- F1 Score: 0.1316
+. Accuracy: 0.7696
+. Precision: 0.7997
+. Recall: 0.0717
+. F1 Score: 0.1316
 
 Decision Tree Model Evaluation:
 
-- Accuracy: 0.9768
-- Precision: 0.9217
-- Recall: 0.9887
-- F1 Score: 0.9540
+. Accuracy: 0.9768
+. Precision: 0.9217
+. Recall: 0.9887
+. F1 Score: 0.9540
 
 Random Forest Model Evaluation:
 
-- Accuracy: 0.9775
-- Precision: 0.9234
-- Recall: 0.9895
-- F1 Score: 0.9553
+. Accuracy: 0.9775
+. Precision: 0.9234
+. Recall: 0.9895
+. F1 Score: 0.9553
 
 Upon analyzing these results, we can draw the following observations and make reasonable conclusions:
 
