@@ -302,9 +302,20 @@ By performing this post-cleaning EDA, we can observe the effects of the cleaning
 
 ## Splitting the Data
 
+Before diving into building our sentiment analysis models, it's crucial to split our dataset into training and testing sets. This step allows us to train our models on a portion of the data and evaluate their performance on unseen examples.
+
 ``` python
+from sklearn.model_selection import train_test_split
+
+def split_data(df: pd.DataFrame):
+    X = df['news']
+    y = df['sentiment']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    return X_train, X_test, y_train, y_test
 
 ```
+
+The split_data function performs this data splitting process. It takes our input dataframe df and separates the 'news' column as the feature (X) and the 'sentiment' column as the target (y). We use the train_test_split function from Scikit-learn, which randomly shuffles the data and splits it into training and testing sets. Here, we allocate 80% of the data for training (X_train and y_train) and keep the remaining 20% for testing (X_test and y_test).
 
 ## Building the Model
 
@@ -378,6 +389,17 @@ def save_model(model, filename):
 The `save_model` function allows us to save our trained model to disk. We utilize the joblib.dump method from Scikit-learn's joblib module. Saving the model ensures that we can use it later for making predictions on new, unseen data without the need to retrain it from scratch.
 
 ## Conclusion
+
+In our sentiment analysis task using Naïve Bayes and SVM models, we observed the following results:
+
+- Naïve Bayes Model:
+  - The model performed well in predicting the 'neutral' sentiment, with 67% precision and 96% recall.
+  - However, it struggled with the 'negative' and 'positive' sentiments, achieving lower precision, recall, and F1-scores.
+  - The overall accuracy of the Naïve Bayes model was 66%.
+- SVM Model:
+  - The SVM model also excelled in predicting the 'neutral' sentiment, with 70% precision and 96% recall.
+  - Similar to the Naïve Bayes model, it faced challenges with the 'negative' and 'positive' sentiments.
+  - The overall accuracy of the SVM model was 72%.
 
 To further improve my sentiment analysis models, I have devised the following plan:
 
